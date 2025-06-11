@@ -1,6 +1,6 @@
 ---
 - name: Install and start Apache (httpd)
-  hosts: all
+  hosts: localhost
   become: yes
 
   tasks:
