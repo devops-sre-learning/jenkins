@@ -1,18 +1,23 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'geerlingguy/docker-ansible:latest'
+      args '-v $HOME/.ssh:/root/.ssh:ro'
+    }
+  }
+
+  environment {
+    ANSIBLE_HOST_KEY_CHECKING = "False"
+  }
 
   stages {
     stage('Ansible Test') {
       steps {
-        script {
-          docker.image('geerlingguy/docker-ansible:latest').inside('-v $HOME/.ssh:/root/.ssh:ro') {
-            sh '''
-              echo "✅ Running inside container..."
-              ansible --version
-              ansible-playbook --version
-            '''
-          }
-        }
+        sh '''
+          echo "✅ Running inside Docker container"
+          ansible --version
+          ansible-playbook --version
+        '''
       }
     }
   }
