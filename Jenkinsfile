@@ -17,8 +17,7 @@ pipeline {
             steps {
                 sshagent(['System']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ryan@Ryan-ASUS.local \
-                        "cd /home/ryan/.local/bin/ansible && ansible-playbook -i /home/ryan/jenkins/inventory/hosts.ini /home/ryan/jenkins/playbook.yml"
+                        ansiblePlaybook become: true, credentialsId: 'super', installation: 'Ansible', inventory: '/home/ryan/jenkins/inventory/hosts.ini', playbook: '/home/ryan/jenkins/playbook.yml', vaultTmpPath: '/home/ryan/jenkins'
                     '''
                 }
             }
