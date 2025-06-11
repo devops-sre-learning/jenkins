@@ -2,12 +2,11 @@ pipeline {
   agent any
 
   stages {
-    stage('Hello') {
+    stage('ansible test') {
       agent {
-                docker {
-                    image 'geerlingguy/docker-ansible:latest'
-                    reuseNode true
-                }
+        docker {
+          image 'geerlingguy/docker-ansible:latest'
+        }
       }
       steps {
         sh '''
