@@ -15,7 +15,7 @@ pipeline {
 
         stage('Run Ansible on Host') {
             steps {
-                sshagent(['your-existing-ssh-cred-id']) {
+                sshagent(['System']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ryan@Ryan-ASUS.local \
                         "cd /home/ryan/.local/bin/ansible && ansible-playbook -i /home/ryan/jenkins/inventory/hosts.ini /home/ryan/jenkins/playbook.yml"
