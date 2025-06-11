@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Prevent SSH prompt for unknown host keys
-        ANSIBLE_HOST_KEY_CHECKING = "False"
-    }
 
     stages {
         stage('Clone Public Ansible Repo') {
@@ -13,11 +9,12 @@ pipeline {
             }
         }
 
-        stage('Run Ansible on Host') {
+        stage('Hello') {
             steps {
-                sshagent(['System']) {
                     sh '''
-                        ansiblePlaybook become: true, credentialsId: 'super', installation: 'Ansible', inventory: '/home/ryan/jenkins/inventory/hosts.ini', playbook: '/home/ryan/jenkins/playbook.yml', vaultTmpPath: '/home/ryan/jenkins'
+                        ansible --version
+                        ansible-playbook --version
+                        ansible-galaxy --version
                     '''
                 }
             }
