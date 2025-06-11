@@ -8,6 +8,7 @@ pipeline {
                     image 'geerlingguy/docker-ansible:latest'
                     reuseNode true
                 }
+      }
       steps {
         sh '''
           ansible --version
