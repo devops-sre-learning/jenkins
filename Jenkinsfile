@@ -23,21 +23,12 @@ pipeline {
     }
     stage('Run Ansible Playbook on localhost') {
             steps {
-                // Create a simple playbook and inventory
+                // Create minimal inventory file targeting localhost
                 sh '''
                     echo '[local]\nlocalhost ansible_connection=local' > inventory
-                    cat <<EOF > playbook.yml
-                    - hosts: localhost
-                      connection: local
-                      gather_facts: false
-                      tasks:
-                        - name: Print message
-                          debug:
-                            msg: "Hello from Ansible on localhost"
-                    EOF
                 '''
 
-                // Run the playbook
+                // Run your existing playbook
                 sh 'ansible-playbook -i inventory playbook.yml'
             }
         }
