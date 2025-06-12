@@ -18,9 +18,19 @@ pipeline {
           echo "✅ Running inside Docker container"
           ansible --version
           ansible-playbook --version
-          ansible-playbook -i localhost playbook.yml
         '''
       }
     }
-  }
+    stage('Run Ansible Playbook on localhost') {
+            steps {
+                // Create minimal inventory file targeting localhost
+                sh '''
+                    echo '[local]\nlocalhost ansible_connection=local' > inventory
+                '''
+
+                // Run your existing playbook
+                sh 'ansible-playbook -i inventory playbook.yml'
+            }
+        }
+    }
 }
