@@ -18,6 +18,7 @@ pipeline {
           echo "✅ Running inside Docker container"
           ansible --version
           ansible-playbook --version
+          ansible-playbook -i localhost playbook.yml
         '''
       }
     }
