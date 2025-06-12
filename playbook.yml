@@ -1,7 +1,7 @@
 ---
 - name: Install and start Apache (httpd)
   hosts: localhost
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure httpd is installed
@@ -13,13 +13,13 @@
       service:
         name: httpd
         state: started
-        enabled: yes
+        enabled: true
 
     - name: Open firewall for HTTP (if firewalld is running)
       firewalld:
         service: http
-        permanent: yes
+        permanent: true
         state: enabled
-        immediate: yes
+        immediate: true
       when: ansible_facts.services["firewalld.service"].state == "running"
-      ignore_errors: yes
+      ignore_errors: true
